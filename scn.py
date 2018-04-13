@@ -7,6 +7,9 @@ import numpy as np
 import time
 import scipy.io as sio
 from sklearn.linear_model import Ridge
+# ignore warning of futurewarning
+
+
 ##这里定义一些全局的变量
 L_max =100
 Tmax = 100
@@ -157,7 +160,9 @@ with tf.device("/gpu:0"):
     hidden = tf.nn.sigmoid(hidden)
     logits = regr.predict(hidden)
     loss = tf.sqrt(tf.reduce_mean(tf.square(logits - test_label)))  # 计算均方根
-
+    print("test loss = {}".format(loss.numpy()) + "  acc = {}".format(acc.numpy()))
+    print("cost_time: %.6f" % (time.clock() - start))
+    
     temp = tf.equal(tf.argmax(logits, 1), tf.argmax(test_label, 1))
     acc = tf.reduce_mean(tf.cast(temp, tf.float32))
 
@@ -165,5 +170,3 @@ with tf.device("/gpu:0"):
     plt.figure(figsize=(8, 4))
     plt.plot(pltx[0:step-1], plty[0:step-1], label="train_loss", color="red", linewidth=2)
     plt.show()
-    print("test loss = {}".format(loss.numpy()) + "  acc = {}".format(acc.numpy()))
-    print("cost_time: %.6f" % (time.clock() - start))
