@@ -7,6 +7,9 @@ import numpy as np
 import time
 import scipy.io as sio
 from sklearn.linear_model import Ridge
+# import os
+# os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+# os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 # ignore warning of futurewarning
 
 
@@ -162,7 +165,7 @@ with tf.device("/gpu:0"):
     loss = tf.sqrt(tf.reduce_mean(tf.square(logits - test_label)))  # 计算均方根
     print("test loss = {}".format(loss.numpy()) + "  acc = {}".format(acc.numpy()))
     print("cost_time: %.6f" % (time.clock() - start))
-    
+
     temp = tf.equal(tf.argmax(logits, 1), tf.argmax(test_label, 1))
     acc = tf.reduce_mean(tf.cast(temp, tf.float32))
 
