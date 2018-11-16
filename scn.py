@@ -1,5 +1,7 @@
 #coding=utf-8
 from tensorflow.examples.tutorials.mnist import input_data
+import matplotlib
+matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt
 import tensorflow as tf
 import tensorflow.contrib.eager as tfe
