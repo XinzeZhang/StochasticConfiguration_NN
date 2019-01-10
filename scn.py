@@ -94,7 +94,10 @@ def mlp(step, x, y, E0,is_train = True):
                 eq = E0[:, i_m]
                 eq = tf.reshape(eq, (-1, 1))
                 # print("H_t ={}".format(H_t.numpy())+"eq = {}".format(eq.numpy)+"r_L = {}".format(r_L))
-                temp1 = tf.square(tf.matmul(tf.transpose(eq), H_t)) / tf.matmul(tf.transpose(H_t), H_t)
+                temp1u= tf.square(tf.matmul(tf.transpose(eq), H_t))
+                # print(temp1u.numpy())
+                temp1d= tf.matmul(tf.transpose(H_t), H_t)
+                temp1 = temp1u / temp1d
                 temp2 = tf.matmul(tf.transpose(eq), eq)
                 temp1_array.append(temp1)
                 temp2_array.append(temp2)
